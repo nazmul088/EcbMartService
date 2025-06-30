@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace EcbAuthService.Utils
+namespace EcbMartService.Utils
 {
     public class JwtTokenGenerator
     {
