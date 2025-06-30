@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using EcbMartService.Models;
+using EcbMartService.Utils;
+using EcbMartService.Data;
 using EcbAuthService.Models;
-using EcbAuthService.Utils;
 
-namespace EcbAuthService.Controllers
+namespace EcbMartService.Controllers
 {
     [ApiController]
     [Route("api/auth")]

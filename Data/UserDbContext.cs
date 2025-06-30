@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using EcbMartService.Models;
 
-namespace EcbAuthService
+namespace EcbMartService.Data
 {
     public class UserDbContext : DbContext
     {
