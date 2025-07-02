@@ -1,0 +1,38 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Dotnet tools
+*.dbmdl
+*.pdb
+
+# Logs
+*.log
+
+# Entity Framework Migrations
+Migrations/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+
+# Rider
+.idea/
+
+# npm packages (if any frontend)
+node_modules/
+
+# Others
+*.swp
