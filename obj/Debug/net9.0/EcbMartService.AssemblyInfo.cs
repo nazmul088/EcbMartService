@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EcbMartService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+789faaf74a38ca4750352adb5f751e58fadecccd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f13600ae86d77d370e6845e4aab5fe218329b85d")]
 [assembly: System.Reflection.AssemblyProductAttribute("EcbMartService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EcbMartService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
