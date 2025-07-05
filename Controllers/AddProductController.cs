@@ -44,5 +44,43 @@ namespace EcbMartService.Controllers
 
             return Ok(products);
         }
+
+        [HttpPut("update/{id}")]
+        public IActionResult UpdateProduct(Guid id, [FromBody] AddProduct updatedProduct)
+        {
+            var product = _dbContext.Products.FirstOrDefault(p => p.id == id);
+            if (product == null)
+            {
+                return NotFound("Product not found.");
+            }
+
+            product.name = updatedProduct.name;
+            product.description = updatedProduct.description;
+            product.price = updatedProduct.price;
+            product.quantity = updatedProduct.quantity;
+            product.category = updatedProduct.category;
+            product.svgImage = updatedProduct.svgImage;
+            product.updatedAt = DateTime.UtcNow;
+
+            _dbContext.SaveChanges();
+
+            return Ok(new { message = "Product updated successfully", product });
+        }
+
+        [HttpDelete("delete/{id}")]
+        public IActionResult DeleteProduct(Guid id)
+        {
+            var product = _dbContext.Products.FirstOrDefault(p => p.id == id);
+            if (product == null)
+            {
+                return NotFound("Product not found.");
+            }
+
+            _dbContext.Products.Remove(product);
+            _dbContext.SaveChanges();
+
+            return Ok(new { message = "Product deleted successfully" });
+        }
+
     }
 }

@@ -8,7 +8,7 @@ namespace EcbMartService.Models
         public required decimal price { get; set; }
         public required int quantity { get; set; }
         public required string category { get; set; }
-        public required string imageUrl { get; set; }
+        public required string svgImage { get; set; }
         public DateTime createdAt { get; set; } = DateTime.UtcNow;
         public DateTime updatedAt { get; set; } = DateTime.UtcNow;
     }
