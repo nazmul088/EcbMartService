@@ -54,6 +54,7 @@ namespace EcbMartService.Controllers
                     order.paymentMethod,
                     order.total,
                     order.orderDate,
+                    order.orderStatus,
                     Items = order.Items.Select(i => new
                     {
                         i.id,
@@ -67,7 +68,7 @@ namespace EcbMartService.Controllers
             });
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public IActionResult GetAllOrders()
         {
             var orders = _dbContext.CustomerOrders
@@ -83,19 +84,12 @@ namespace EcbMartService.Controllers
                 order.paymentMethod,
                 order.total,
                 order.orderDate,
-                Items = order.Items.Select(i => new
-                {
-                    i.id,
-                    i.productId,
-                    i.productName,
-                    i.productPrice,
-                    i.productImage,
-                    i.quantity
-                })
+                order.orderStatus,
+                totalItems = order.Items.Sum(i => i.quantity)
             }));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public IActionResult GetOrderById(Guid id)
         {
             var order = _dbContext.CustomerOrders
@@ -116,6 +110,7 @@ namespace EcbMartService.Controllers
                 order.paymentMethod,
                 order.total,
                 order.orderDate,
+                order.orderStatus,
                 Items = order.Items.Select(i => new
                 {
                     i.id,
@@ -125,6 +120,36 @@ namespace EcbMartService.Controllers
                     i.productImage,
                     i.quantity
                 })
+            });
+        }
+
+        [HttpPut("{id:guid}/status")]
+        public IActionResult UpdateOrderStatus(Guid id, [FromBody] StatusDto statusDto)
+        {
+            if (statusDto == null || string.IsNullOrEmpty(statusDto.Status))
+            {
+                return BadRequest("Status is required.");
+            }
+            var order = _dbContext.CustomerOrders.FirstOrDefault(o => o.id == id);
+            if (order == null)
+            {
+                return NotFound($"Order with ID {id} not found.");
+            }
+            if (Enum.TryParse<OrderStatus>(statusDto.Status, true, out var parsedStatus))
+            {
+                order.orderStatus = parsedStatus;
+            }
+            else
+            {
+                return BadRequest($"Invalid status value: {statusDto.Status}");
+            }
+            
+            _dbContext.SaveChanges();
+            return Ok(new
+            {
+                message = $"Order status for ID {id} updated successfully.",
+                order.id,
+                order.orderStatus
             });
         }
 
