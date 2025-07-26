@@ -1,5 +1,14 @@
 namespace EcbMartService.Models
 {
+    public enum OrderStatus
+    {
+        Placed,
+        Processing,
+        Shipped,
+        Delivered,
+        Cancelled
+    }
+
     public class CustomerOrder
     {
         public Guid id { get; set; } = Guid.NewGuid();
@@ -8,8 +17,9 @@ namespace EcbMartService.Models
         public string mobileNumber { get; set; }
         public string paymentMethod { get; set; }
         public decimal total { get; set; }
+        public OrderStatus? orderStatus { get; set; } = OrderStatus.Placed;
         public DateTime orderDate { get; set; } = DateTime.UtcNow;
-
+        
         public List<OrderItem> Items { get; set; } = new List<OrderItem>();
     }
 
@@ -27,5 +37,10 @@ namespace EcbMartService.Models
         // Foreign key to CustomerOrder
         public Guid customerOrderId { get; set; }
         public CustomerOrder? customerOrder { get; set; }
+    }
+
+    public class StatusDto
+    {
+        public string Status { get; set; }
     }
 }
