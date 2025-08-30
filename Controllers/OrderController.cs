@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using EcbMartService.Data;
 using EcbMartService.Models;
 using Microsoft.EntityFrameworkCore;
+using EcbMartService.Utils;
 
 namespace EcbMartService.Controllers
 {
     [ApiController]
     [Route("api/order")]
+    [RequireAuth]
     public class OrderController : ControllerBase
     {
         private readonly OrderDbContext _dbContext;

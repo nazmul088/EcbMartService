@@ -36,3 +36,12 @@ node_modules/
 
 # Others
 *.swp
+
+
+# Additional patterns to ignore files with email
+**/obj/**
+**/bin/**
+*.user
+*.suo
+*.userosscache
+*.sln.docstates

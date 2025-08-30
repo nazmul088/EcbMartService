@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using EcbMartService.Data;
 using EcbMartService.Models;
+using EcbMartService.Utils;
 
 namespace EcbMartService.Controllers
 {
     [ApiController]
+    [RequireAuth]
     [Route("api/product")]
     public class AddProductController : ControllerBase
     {
