@@ -4,5 +4,6 @@ namespace EcbMartService.Models
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string PhoneNumber { get; set; }
+        public string? AuthToken { get; set; }
     }
 }

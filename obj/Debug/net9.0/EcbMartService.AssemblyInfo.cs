@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("31759e90-7517-4948-841c-109e1d9268e4")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("EcbMartService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b04b367619d17bd8a333aa5d20e3524a417031f8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ec4d01e34df6e2daf105381f65f8a4611ddfae6e")]
 [assembly: System.Reflection.AssemblyProductAttribute("EcbMartService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EcbMartService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

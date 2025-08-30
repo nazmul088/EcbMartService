@@ -20,7 +20,8 @@
           "net9.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://tech-analytics-euf-662744937784.d.codeartifact.eu-central-1.amazonaws.com/nuget/oa-packages/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
@@ -48,6 +49,10 @@
               "target": "Package",
               "version": "[9.0.6, )"
             },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.8, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.6, )"
@@ -61,6 +66,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[9.0.4, )"
+            },
+            "Twilio": {
+              "target": "Package",
+              "version": "[7.12.1, )"
             }
           },
           "imports": [

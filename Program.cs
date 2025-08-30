@@ -1,10 +1,16 @@
 using EcbMartService.Data;
 using EcbMartService.Utils;
 using Microsoft.EntityFrameworkCore;
+using EcbMartService.Services;
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+// Add Authentication
+builder.Services.AddAuthentication("Bearer")
+    .AddScheme<AuthenticationSchemeOptions, JwtAuthenticationHandler>("Bearer", null);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -15,7 +21,9 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 
+builder.Services.AddHttpClient();
 builder.Services.AddSingleton<JwtTokenGenerator>();
+builder.Services.AddTransient<ISmsSender, TwilioSmsSender>();
 
 // Add DbContext
 builder.Services.AddDbContext<UserDbContext>(options =>
@@ -27,6 +35,11 @@ builder.Services.AddDbContext<OrderDbContext>(options =>
 var app = builder.Build();
 
 app.UseCors("AllowAll");
+
+// Add Authentication middleware
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers(); 
 
 // Configure the HTTP request pipeline.
