@@ -3,6 +3,7 @@ using EcbMartService.Data;
 using EcbMartService.Models;
 using Microsoft.EntityFrameworkCore;
 using EcbMartService.Utils;
+using System.Security.Claims;
 
 namespace EcbMartService.Controllers
 {
@@ -12,16 +13,44 @@ namespace EcbMartService.Controllers
     public class OrderController : ControllerBase
     {
         private readonly OrderDbContext _dbContext;
+        private readonly UserDbContext _userDbContext;
 
-        public OrderController(OrderDbContext dbContext)
+        public OrderController(OrderDbContext dbContext, UserDbContext userDbContext)
         {
             _dbContext = dbContext;
+            _userDbContext = userDbContext;
+        }
+
+        private string? GetBearerToken()
+        {
+            if (HttpContext.Items.TryGetValue("JwtToken", out var tokenObj))
+            {
+                Console.WriteLine("TokenObj GetBearerToken: " + tokenObj);
+                return tokenObj as string;
+            }
+            var authHeader = HttpContext.Request.Headers["Authorization"].FirstOrDefault();
+            return authHeader?.Split(' ').Last();
         }
 
         [HttpPost]
         [Route("add")]
         public IActionResult AddOrder([FromBody] CustomerOrder order)
         {
+            var phoneNumber = User.FindFirst("PhoneNumber")?.Value
+                ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(phoneNumber))
+            {
+                return Unauthorized(new { message = "User identity missing" });
+            }
+
+            //Now get the user from the database
+            var user = _userDbContext.Users.FirstOrDefault(u => u.PhoneNumber == phoneNumber);
+            if (user == null)
+            {
+                return Unauthorized(new { message = "User not found" });
+            }
+
+
             if (order == null)
             {
                 return BadRequest("Order data is required.");
@@ -41,6 +70,7 @@ namespace EcbMartService.Controllers
             }
 
             order.orderDate = DateTime.UtcNow;
+            order.customerId = user.Id;
             _dbContext.CustomerOrders.Add(order);
             _dbContext.SaveChanges();
 

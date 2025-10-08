@@ -17,6 +17,7 @@ namespace EcbMartService.Models
         public string mobileNumber { get; set; }
         public string paymentMethod { get; set; }
         public decimal total { get; set; }
+        public Guid customerId { get; set; }
         public OrderStatus? orderStatus { get; set; } = OrderStatus.Placed;
         public DateTime orderDate { get; set; } = DateTime.UtcNow;
         
